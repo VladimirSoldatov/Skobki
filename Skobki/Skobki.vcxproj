@@ -139,8 +139,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Drob_CP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="drob_header.h" />
     <ClInclude Include="Node_class.h" />
     <ClInclude Include="Stack_class.h" />
   </ItemGroup>

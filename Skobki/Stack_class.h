@@ -12,12 +12,13 @@ public:
 		clear();
 	}
 	T pop();
-	void push(T value);
+	void push(T value, T name = "", T surname = "", T mob_tel = "");
 	T peek();
 	void list();
+	void search(T surname);
 	bool empty();
 	void clear();
-	void clone(Stack& old_obj);
+	void del (T surname);
 
 };
 template <class T>
@@ -30,8 +31,8 @@ T Stack <T>::pop() {
 
 }
 template <class T>
-void Stack <T>::push(T value_temp) {
-	Node<T>* newnode = new Node<T>(value_temp);
+void Stack <T>::push(T value, T name, T surname, T mob_tel) {
+	Node<T>* newnode = new Node<T>(value, name, surname, mob_tel);
 
 	newnode->set_next(head);
    head = newnode;
@@ -40,10 +41,64 @@ template <class T>
 void Stack <T>::list() {
 	Node<T>* listnode = head;
 	while (listnode != 0) {
-		std::cout << listnode->get_value() << " ";
+		std::cout << listnode->get_value();
 		listnode = listnode->get_next();
 	}
 
+	std::cout << "\n";
+}
+template <class T>
+void Stack <T>::search(T surname) {
+	Node<T>* listnode = head;
+	while (listnode != 0) {
+		if (listnode->get_surname()==surname)
+		std::cout << listnode->get_value() << " найден";
+		listnode = listnode->get_next();
+	}
+
+
+}
+template <class T>
+void Stack <T>::del(T surname) {
+	Node<T>* listnode = head;
+	Node<T>* temp = NULL;
+
+	while (listnode) {
+		if (listnode->get_surname() == surname) {
+			if (temp) {
+	
+				temp->set_next(NULL);
+				std::cout << listnode->get_value() << " удален\n";
+
+				listnode = listnode->get_next();
+
+				temp->set_next(listnode);
+
+
+
+			}
+			else {
+				temp = head;
+				head = head->get_next();
+				std::cout << listnode->get_value() << " удален\n";
+				listnode = listnode->get_next();
+				delete temp;
+				
+			}
+
+		
+
+
+			
+			
+		}
+		else {
+			temp = listnode;
+			listnode = listnode->get_next();
+			
+		}
+	
+	}
 
 }
 template <class T>
@@ -66,9 +121,4 @@ template <class T>
 T Stack<T>::peek() {
 	return head->get_value();
 
-}
-template <class T>
-void Stack<T>::clone(Stack<T>& old_obj) {
-
-	*this = old_obj;
 }
